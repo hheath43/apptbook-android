@@ -1,27 +1,37 @@
 package edu.pdx.cs410J.heathhan;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+
 
 import edu.pdx.cs410J.heathhan.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    private final Map<String, AppointmentBook> books = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +51,17 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        //OnClick Create AppointmentBook
+        Button launchApptBook = findViewById(R.id.create);
+        launchApptBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Make new ApptBook
+                AppointmentBook book = new AppointmentBook();
+
+            }
+        });
     }
 
     @Override
@@ -58,11 +79,40 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_readme) {
+            try {
+                readme();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void readme() throws IOException {
+        File file = getReadme();
+        if (!file.exists()) {
+            return;
+        }
+
+        try (
+                BufferedReader br = new BufferedReader(new FileReader(file))
+        ) {
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                //display line in a list?
+            }
+
+        }
+    }
+
+    @NonNull
+    private File getReadme() {
+        File contextDirectory = getApplicationContext().getDataDir();
+        File sumsFile = new File(contextDirectory, "README.txt");
+        return sumsFile;
     }
 
 
