@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -60,8 +61,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Make new ApptBook
-                AppointmentBook book = new AppointmentBook(getOwnerInput());
-
+                String owner = getOwnerInput();
+                AppointmentBook book = new AppointmentBook(owner);
+                books.put(owner, book);
+                String message = "AppointmentBook Created for: " + owner;
+                toast(message);
             }
         });
     }
@@ -76,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
         EditText ownerInput = findViewById(R.id.owner_input);
         String owner = ownerInput.getText().toString();
         return owner;
+    }
+
+    private void toast(String message) {
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
 
