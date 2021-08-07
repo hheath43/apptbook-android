@@ -1,6 +1,5 @@
 package edu.pdx.cs410J.heathhan;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -61,11 +60,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Make new ApptBook
-                String owner = getOwnerInput();
-                AppointmentBook book = new AppointmentBook(owner);
-                books.put(owner, book);
-                String message = "AppointmentBook Created for: " + owner;
-                toast(message);
+                String owner = ownerToString(getOwnerInput());
+
+                if(ownerRequired(getOwnerInput(), owner)) {
+                    AppointmentBook book = new AppointmentBook(owner);
+                    books.put(owner, book);
+                    String message = "AppointmentBook Created for: " + owner;
+                    toast(message);
+                }
+
             }
         });
     }
@@ -76,10 +79,22 @@ public class MainActivity extends AppCompatActivity {
      * @return - String
      *      Owner input returned as String
      */
-    private String getOwnerInput(){
-        EditText ownerInput = findViewById(R.id.owner_input);
+    private String ownerToString(EditText ownerInput){
         String owner = ownerInput.getText().toString();
         return owner;
+    }
+
+    private EditText getOwnerInput(){
+        EditText ownerInput = findViewById(R.id.owner_input);
+        return ownerInput;
+    }
+
+    private Boolean ownerRequired(EditText ownerInput, String owner){
+        if(owner.trim().equals("")) {
+            ownerInput.setHint("Owner Name is Required");
+            return false;
+        }
+        return true;
     }
 
     private void toast(String message) {
