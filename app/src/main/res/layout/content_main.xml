@@ -17,6 +17,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Owner Name:"
+            android:inputType="none"/>
+
+        <EditText
+            android:id="@+id/owner_input"
+            android:layout_width="100pt"
+            android:layout_height="15pt"
+            android:layout_margin="5pt"
+            android:textSize="5pt"
+            android:autofillHints="name"
+            tools:layout_editor_absoluteX="160dp"
+            tools:layout_editor_absoluteY="176dp" />
 
         <Button
             android:id="@+id/create"
@@ -53,8 +68,6 @@
             android:text="@string/search_appts"
             tools:layout_editor_absoluteX="160dp"
             tools:layout_editor_absoluteY="176dp" />
-
-
 
     </LinearLayout>
 

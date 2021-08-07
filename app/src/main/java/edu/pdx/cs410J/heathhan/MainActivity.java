@@ -19,6 +19,7 @@ import edu.pdx.cs410J.heathhan.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     private final Map<String, AppointmentBook> books = new HashMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +60,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Make new ApptBook
-                AppointmentBook book = new AppointmentBook();
+                AppointmentBook book = new AppointmentBook(getOwnerInput());
 
             }
         });
     }
+
+    /**
+     * Method to get the owner input and convert to a String
+     *
+     * @return - String
+     *      Owner input returned as String
+     */
+    private String getOwnerInput(){
+        EditText ownerInput = findViewById(R.id.owner_input);
+        String owner = ownerInput.getText().toString();
+        return owner;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
