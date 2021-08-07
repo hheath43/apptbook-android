@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddApptActivity">
+
+    <LinearLayout
+        android:id="@+id/add_appt_parameters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.174">
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5pt"
+            android:text="@string/description"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="130dp" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="356dp"
+            android:layout_height="20pt"
+            android:layout_margin="5pt"
+            android:ems="10"
+            android:hint="@string/description_ex"
+            android:inputType="none"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="200dp" />
+
+        <TextView
+            android:id="@+id/begin_date_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5pt"
+            android:text="@string/start_date_time"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="275dp" />
+
+        <LinearLayout
+            android:id="@+id/start_parameters"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:layout_margin="5pt"
+            android:orientation="horizontal"
+            android:textAlignment="center"
+            tools:layout_editor_absoluteX="50dp"
+            tools:layout_editor_absoluteY="263dp">
+
+
+            <EditText
+                android:id="@+id/editTextDate"
+                android:layout_width="173dp"
+                android:layout_height="20pt"
+                android:ems="10"
+                android:inputType="date"
+                android:hint="@string/date_ex"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="310dp" />
+
+            <EditText
+                android:id="@+id/editTextTime"
+                android:layout_width="173dp"
+                android:layout_height="20pt"
+                android:layout_marginLeft="5pt"
+                android:ems="10"
+                android:inputType="time"
+                android:hint="@string/time_ex"
+                tools:layout_editor_absoluteX="201dp"
+                tools:layout_editor_absoluteY="310dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/end_date_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5pt"
+            android:text="@string/end_date_time"
+            tools:layout_editor_absoluteX="21dp"
+            tools:layout_editor_absoluteY="380dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="69dp"
+            android:layout_margin="5pt"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="-5dp"
+            tools:layout_editor_absoluteY="263dp">
+
+
+            <EditText
+                android:id="@+id/editTextDate2"
+                android:layout_width="173dp"
+                android:layout_height="20pt"
+                android:ems="10"
+                android:hint="@string/date_ex"
+                android:inputType="date"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="419dp" />
+
+
+            <EditText
+                android:id="@+id/editTextTime2"
+                android:layout_width="173dp"
+                android:layout_height="20pt"
+                android:layout_marginLeft="5pt"
+                android:ems="10"
+                android:hint="@string/time_ex"
+                android:inputType="time"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="419dp" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/add_appt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="83pt"
+            android:text="@string/add_appointment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDate2" />
+
+        <Button
+            android:id="@+id/return_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120pt"
+            android:text="@string/return_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_appt" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

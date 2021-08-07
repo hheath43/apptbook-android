@@ -1,5 +1,6 @@
 package edu.pdx.cs410J.heathhan;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //OnClick Create AppointmentBook
-        Button launchApptBook = findViewById(R.id.create);
+        Button launchApptBook = findViewById(R.id.create_apptbook);
         launchApptBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +72,20 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        //onClick Add Appointment
+        Button launchAddAppt = findViewById(R.id.add_appt);
+        launchAddAppt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Check if ApptBook already exists (Map?, but most likely check file exists)?
+
+                Intent intent = new Intent(MainActivity.this, AddApptActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
     }
 
     /**
