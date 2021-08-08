@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppointmentBook">
         <activity
+            android:name=".ViewAllActivity"
+            android:exported="true" />
+        <activity
             android:name=".AddApptActivity"
             android:exported="true" />
         <activity

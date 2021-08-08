@@ -24,21 +24,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-    private final Map<String, AppointmentBook> books = new HashMap<>();
     public static final int GET_NEW_APPT = 42;
     private String owner = null;
 
@@ -53,32 +51,27 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
 
         //DELETE AND XML WITH THIS
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+        /*binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Appointment appointment = new Appointment("Learn Java", "08/11/2021", "12:00",  "PM",  "08/11/2021", "1:30", "PM");
                 Snackbar.make(view, appointment.toString(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         //OnClick Create AppointmentBook
         Button launchApptBook = findViewById(R.id.create_apptbook);
         launchApptBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Make new ApptBook
                 owner = ownerToString(getOwnerInput());
 
                 if(ownerRequired(getOwnerInput(), owner)) {
-                    AppointmentBook book = new AppointmentBook(owner);
-                    books.put(owner, book);
+                    createAppointmentBookFile(owner);
                     String message = "AppointmentBook Created for: " + owner;
                     toast(message);
                 }
-
-                //Create new file
-                createAppointmentBookFile(owner);
 
             }
         });
@@ -93,6 +86,35 @@ public class MainActivity extends AppCompatActivity {
                 if(ownerRequired(getOwnerInput(), owner)) {
                     Intent intent = new Intent(MainActivity.this, AddApptActivity.class);
                     startActivityForResult(intent, GET_NEW_APPT);
+                }
+            }
+        });
+
+        //onClick ViewAll Appointments
+        Button launchViewAll = findViewById(R.id.view_all);
+        launchViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                owner = ownerToString(getOwnerInput());
+                AppointmentBook book = new AppointmentBook(owner);
+
+                if(ownerRequired(getOwnerInput(), owner)) {
+                    File file = getFile(owner);
+                    TextParser parser = null;
+                    try {
+                        parser = new TextParser(new FileReader(file));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                       book = parser.parse();
+                    } catch (ParserException e) {
+                        e.printStackTrace();
+                    }
+
+                    Intent intent = new Intent(MainActivity.this, ViewAllActivity.class);
+                    intent.putExtra("appointmentBook", book);
+                    startActivity(intent);
                 }
             }
         });
@@ -142,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
 
     /**
      * Method to get the owner input and convert to a String
@@ -269,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
         File contextDirectory = getApplicationContext().getDataDir();
         File file = new File(contextDirectory, str);
 
-        //REPLACE WITH TEXTDUMPER
+        //REPLACE WITH TEXTDUMPER?
         try (
                 PrintWriter pw = new PrintWriter(new FileWriter(file))
         ) {
