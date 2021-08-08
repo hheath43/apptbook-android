@@ -15,6 +15,7 @@ import android.view.View;
 import androidx.navigation.ui.AppBarConfiguration;
 
 
+import edu.pdx.cs410J.ParserException;
 import edu.pdx.cs410J.heathhan.databinding.ActivityMainBinding;
 
 import android.view.Menu;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -101,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         TextDumper dumper;
+        TextParser parser;
         AppointmentBook book;
 
         if (resultCode == RESULT_OK && requestCode == GET_NEW_APPT && data != null) {
@@ -108,9 +111,19 @@ public class MainActivity extends AppCompatActivity {
             toast("Appointment Added: " + appt);
             // check file exists
             //      if it does -> parse file to apptbook object, add appt, then Textdump to file
-            //      else -> create file and apptbook, add appt, then dump to file
-            //
+
             if(checkFileExists(owner)){
+                File file = getFile(owner);
+                try {
+                    parser = new TextParser(new FileReader(file));
+                    book = parser.parse();
+                    book.addAppointment(appt);
+                    dumper = new TextDumper(new FileWriter(file));
+                    dumper.dump(book);
+
+                } catch (ParserException | IOException e) {
+                    e.printStackTrace();
+                }
 
             } else {
                 File file = createAppointmentBookFile(owner);
@@ -231,6 +244,16 @@ public class MainActivity extends AppCompatActivity {
         File file = new File(contextDirectory, str);
 
         return file.exists();
+    }
+
+    private File getFile(String owner){
+        String str = replaceSpace(owner);
+        str = str + ".txt";
+
+        File contextDirectory = getApplicationContext().getDataDir();
+        File file = new File(contextDirectory, str);
+
+        return file;
     }
 
     /**
