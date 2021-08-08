@@ -100,9 +100,8 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == GET_NEW_APPT && data != null) {
-            String apptStr;
-            apptStr = data.getStringExtra(AddApptActivity.EXTRA_APPT);
-
+            Appointment appt = (Appointment) data.getSerializableExtra(AddApptActivity.EXTRA_APPT);
+            toast("Got appointment: " + appt);
 
         }
     }
