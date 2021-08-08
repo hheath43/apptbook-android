@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     private final Map<String, AppointmentBook> books = new HashMap<>();
+    public static final int GET_NEW_APPT = 42;
 
 
     @Override
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Appointment appointment = new Appointment("Learn Java", "08/11/2021", "12:00", "PM", "08/11/2021", "1:30", "PM");
+                Appointment appointment = new Appointment("Learn Java", "08/11/2021", "12:00",  "PM",  "08/11/2021", "1:30", "PM");
                 Snackbar.make(view, appointment.toString(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -81,11 +83,23 @@ public class MainActivity extends AppCompatActivity {
                 //Check if ApptBook already exists (Map?, but most likely check file exists)?
 
                 Intent intent = new Intent(MainActivity.this, AddApptActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, GET_NEW_APPT);
 
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == GET_NEW_APPT && data != null) {
+            String apptStr;
+            apptStr = data.getStringExtra(AddApptActivity.EXTRA_APPT);
+
+
+        }
     }
 
     /**
@@ -168,5 +182,10 @@ public class MainActivity extends AppCompatActivity {
         return sumsFile;
     }
 
+
+    private String replaceSpace(String str){
+        str = str.replace(" ", "_");
+        return str;
+    }
 
 }

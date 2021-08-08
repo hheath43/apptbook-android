@@ -68,7 +68,7 @@ public class Appointment extends AbstractAppointment {
      */
     @Override
     public String getBeginTimeString(){
-        if(beginDate == null || beginTime == null || midday1 == null){
+        if(beginDate == null || beginTime == null /*|| midday1 == null*/){
             System.err.println("Appointment Missing Begin Date, Time and/OR AM/PM Marker");
             return "Appointment Missing Begin Date, Time and/OR AM/PM Marker";
         }

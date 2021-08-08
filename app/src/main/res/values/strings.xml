@@ -21,7 +21,8 @@
     <string name="end_date_time">End Date and Time:</string>
     <string name="description_ex">ex: Learning Java</string>
     <string name="date_ex">ex: 08/11/2021</string>
-    <string name="time_ex">ex: 05:30 PM</string>
+    <string name="time_ex">ex: 05:30</string>
+    <string name="marker_ex">am/pm</string>
     <string name="add_appointment">Add Appointment</string>
 
     <!-- Strings used throughout -->

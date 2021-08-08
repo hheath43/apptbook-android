@@ -29,7 +29,7 @@
             tools:layout_editor_absoluteY="130dp" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/description_input"
             android:layout_width="356dp"
             android:layout_height="20pt"
             android:layout_margin="5pt"
@@ -60,8 +60,8 @@
 
 
             <EditText
-                android:id="@+id/editTextDate"
-                android:layout_width="173dp"
+                android:id="@+id/start_date"
+                android:layout_width="145dp"
                 android:layout_height="20pt"
                 android:ems="10"
                 android:inputType="date"
@@ -70,8 +70,8 @@
                 tools:layout_editor_absoluteY="310dp" />
 
             <EditText
-                android:id="@+id/editTextTime"
-                android:layout_width="173dp"
+                android:id="@+id/start_time"
+                android:layout_width="100dp"
                 android:layout_height="20pt"
                 android:layout_marginLeft="5pt"
                 android:ems="10"
@@ -79,6 +79,18 @@
                 android:hint="@string/time_ex"
                 tools:layout_editor_absoluteX="201dp"
                 tools:layout_editor_absoluteY="310dp" />
+
+            <EditText
+                android:id="@+id/start_marker"
+                android:layout_width="68dp"
+                android:layout_height="20pt"
+                android:layout_marginLeft="5pt"
+                android:ems="10"
+                android:hint="@string/marker_ex"
+                android:inputType="text"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="419dp" />
+
         </LinearLayout>
 
         <TextView
@@ -91,7 +103,7 @@
             tools:layout_editor_absoluteY="380dp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="359dp"
             android:layout_height="69dp"
             android:layout_margin="5pt"
             android:orientation="horizontal"
@@ -100,8 +112,8 @@
 
 
             <EditText
-                android:id="@+id/editTextDate2"
-                android:layout_width="173dp"
+                android:id="@+id/end_date"
+                android:layout_width="145dp"
                 android:layout_height="20pt"
                 android:ems="10"
                 android:hint="@string/date_ex"
@@ -111,13 +123,24 @@
 
 
             <EditText
-                android:id="@+id/editTextTime2"
-                android:layout_width="173dp"
+                android:id="@+id/end_time"
+                android:layout_width="100dp"
                 android:layout_height="20pt"
                 android:layout_marginLeft="5pt"
                 android:ems="10"
                 android:hint="@string/time_ex"
                 android:inputType="time"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="419dp" />
+
+            <EditText
+                android:id="@+id/end_marker"
+                android:layout_width="68dp"
+                android:layout_height="20pt"
+                android:layout_marginLeft="5pt"
+                android:ems="10"
+                android:hint="@string/marker_ex"
+                android:inputType="text"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="419dp" />
         </LinearLayout>
