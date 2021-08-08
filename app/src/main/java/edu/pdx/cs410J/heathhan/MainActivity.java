@@ -26,7 +26,9 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
-
+        //DELETE AND XML WITH THIS
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
                     String message = "AppointmentBook Created for: " + owner;
                     toast(message);
                 }
+
+                //Create new file
+                createAppointmentBookFile(owner);
 
             }
         });
@@ -159,7 +164,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void readme() throws IOException {
-        File file = getReadme();
+        //createAppointmentBookFile("Hannah Heath");
+        if(checkFileExists("Hannah Heath")){
+            toast("YES");
+        }
+        else{
+            toast("NO");
+        }
+       /* File file = getReadme();
         if (!file.exists()) {
             return;
         }
@@ -172,20 +184,55 @@ public class MainActivity extends AppCompatActivity {
                 //display line in a list?
             }
 
-        }
+        }*/
     }
 
     @NonNull
     private File getReadme() {
         File contextDirectory = getApplicationContext().getDataDir();
-        File sumsFile = new File(contextDirectory, "README.txt");
-        return sumsFile;
+        File readMeFile = new File(contextDirectory, "README.txt");
+        return readMeFile;
     }
 
 
     private String replaceSpace(String str){
         str = str.replace(" ", "_");
         return str;
+    }
+
+    private Boolean checkFileExists(String owner){
+        String str = replaceSpace(owner);
+        str = str + ".txt";
+        File contextDirectory = getApplicationContext().getDataDir();
+        File file = new File(contextDirectory, "Hannah_Heath.txt");
+
+        return file.exists();
+    }
+
+    /**
+     * Creates a file with the owners name and writes the owner to it.
+     *
+     * @param owner
+     */
+    private void createAppointmentBookFile(String owner){
+        String str = replaceSpace(owner);
+        str = str + ".txt";
+        System.out.println(str);
+
+        File contextDirectory = getApplicationContext().getDataDir();
+        File file = new File(contextDirectory, str);
+
+        try (
+                PrintWriter pw = new PrintWriter(new FileWriter(file))
+        ) {
+
+            pw.println(owner);
+
+            pw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
