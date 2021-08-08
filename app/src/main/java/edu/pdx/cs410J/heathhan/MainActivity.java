@@ -101,7 +101,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (resultCode == RESULT_OK && requestCode == GET_NEW_APPT && data != null) {
             Appointment appt = (Appointment) data.getSerializableExtra(AddApptActivity.EXTRA_APPT);
-            toast("Got appointment: " + appt);
+            toast("Appointment Added: " + appt);
+            // check file exists
+            //      if it does -> parse file to apptbook object, add appt, then Textdump to file
+            //      else -> create file and apptbook, add appt, then dump to file
+            //
 
         }
     }
