@@ -50,15 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
-        //DELETE AND XML WITH THIS
-        /*binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Appointment appointment = new Appointment("Learn Java", "08/11/2021", "12:00",  "PM",  "08/11/2021", "1:30", "PM");
-                Snackbar.make(view, appointment.toString(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         //OnClick Create AppointmentBook
         Button launchApptBook = findViewById(R.id.create_apptbook);
