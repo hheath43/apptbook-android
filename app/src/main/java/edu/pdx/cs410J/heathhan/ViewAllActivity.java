@@ -4,8 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -52,11 +51,9 @@ public class ViewAllActivity extends AppCompatActivity {
         }
 
 
-        //this.appointments = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         TextView outputOfAppts = findViewById(R.id.appointments);
         outputOfAppts.setText((CharSequence) text);
-        //appointments.addAll(book.getAppointments());
-        //listOfAppt.setAdapter(appointments);
+
     }
 
     private File getFile(String owner){

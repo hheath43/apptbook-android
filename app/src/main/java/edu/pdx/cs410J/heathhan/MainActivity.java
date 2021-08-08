@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
     private Boolean ownerRequired(EditText ownerInput, String owner){
         if(owner.trim().equals("")) {
             ownerInput.setError("Owner Name is Required");
-            //ownerInput.setHint("Owner Name is Required");
+            ownerInput.setHint("Owner Name is Required");
             return false;
         }
         return true;
