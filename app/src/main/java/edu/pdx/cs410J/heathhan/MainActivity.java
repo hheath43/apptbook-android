@@ -165,12 +165,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void readme() throws IOException {
         //createAppointmentBookFile("Hannah Heath");
-        if(checkFileExists("Hannah Heath")){
+        /*if(checkFileExists("Hannah Heath")){
             toast("YES");
         }
         else{
             toast("NO");
-        }
+        }*/
        /* File file = getReadme();
         if (!file.exists()) {
             return;
@@ -222,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
         File contextDirectory = getApplicationContext().getDataDir();
         File file = new File(contextDirectory, str);
 
+        //REPLACE WITH TEXTDUMPER
         try (
                 PrintWriter pw = new PrintWriter(new FileWriter(file))
         ) {
