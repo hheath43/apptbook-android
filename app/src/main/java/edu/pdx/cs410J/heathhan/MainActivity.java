@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private final Map<String, AppointmentBook> books = new HashMap<>();
     public static final int GET_NEW_APPT = 42;
+    private String owner = null;
 
 
     @Override
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Make new ApptBook
-                String owner = ownerToString(getOwnerInput());
+                owner = ownerToString(getOwnerInput());
 
                 if(ownerRequired(getOwnerInput(), owner)) {
                     AppointmentBook book = new AppointmentBook(owner);
@@ -85,11 +86,12 @@ public class MainActivity extends AppCompatActivity {
         launchAddAppt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Check if ApptBook already exists (Map?, but most likely check file exists)?
+                owner = ownerToString(getOwnerInput());
 
-                Intent intent = new Intent(MainActivity.this, AddApptActivity.class);
-                startActivityForResult(intent, GET_NEW_APPT);
-
+                if(ownerRequired(getOwnerInput(), owner)) {
+                    Intent intent = new Intent(MainActivity.this, AddApptActivity.class);
+                    startActivityForResult(intent, GET_NEW_APPT);
+                }
             }
         });
 
@@ -98,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        TextDumper dumper;
+        AppointmentBook book;
 
         if (resultCode == RESULT_OK && requestCode == GET_NEW_APPT && data != null) {
             Appointment appt = (Appointment) data.getSerializableExtra(AddApptActivity.EXTRA_APPT);
@@ -106,6 +110,22 @@ public class MainActivity extends AppCompatActivity {
             //      if it does -> parse file to apptbook object, add appt, then Textdump to file
             //      else -> create file and apptbook, add appt, then dump to file
             //
+            if(checkFileExists(owner)){
+
+            } else {
+                File file = createAppointmentBookFile(owner);
+                book = new AppointmentBook(owner);
+                book.addAppointment(appt);
+                System.out.println(book);
+
+                try {
+                    dumper = new TextDumper(new FileWriter(file));
+                    dumper.dump(book);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
 
         }
     }
@@ -128,7 +148,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Boolean ownerRequired(EditText ownerInput, String owner){
         if(owner.trim().equals("")) {
-            ownerInput.setHint("Owner Name is Required");
+            ownerInput.setError("Owner Name is Required");
+            //ownerInput.setHint("Owner Name is Required");
             return false;
         }
         return true;
@@ -207,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
         String str = replaceSpace(owner);
         str = str + ".txt";
         File contextDirectory = getApplicationContext().getDataDir();
-        File file = new File(contextDirectory, "Hannah_Heath.txt");
+        File file = new File(contextDirectory, str);
 
         return file.exists();
     }
@@ -217,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param owner
      */
-    private void createAppointmentBookFile(String owner){
+    private File createAppointmentBookFile(String owner){
         String str = replaceSpace(owner);
         str = str + ".txt";
         System.out.println(str);
@@ -236,6 +257,8 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return file;
 
     }
 

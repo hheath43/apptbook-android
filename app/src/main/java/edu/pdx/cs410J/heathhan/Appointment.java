@@ -7,7 +7,7 @@ import java.util.Date;
 
 import edu.pdx.cs410J.AbstractAppointment;
 
-public class Appointment extends AbstractAppointment {
+public class Appointment extends AbstractAppointment implements Comparable<Appointment> {
 
     private final String description;
     private final String beginDate;
@@ -159,6 +159,31 @@ public class Appointment extends AbstractAppointment {
             e.printStackTrace();
         }
         return end;
+    }
+
+    /**
+     * Method to compare appointment objects.
+     *
+     * @param a - Appointment
+     *          The appointment for comparison.
+     *
+     * @return - int
+     *        Number represents 1 when a should go before, -1 when q should go after
+     */
+    @Override
+    public int compareTo(Appointment a){
+        int begin = this.getBeginTime().compareTo(a.getBeginTime());
+        int end = this.getEndTime().compareTo(a.getEndTime());
+        assert this.description != null;
+        assert a.description != null;
+        int desc = this.description.compareTo(a.description);
+
+        if(begin == 0){
+            return ((end == 0) ? desc : end);
+        }
+        else{
+            return begin;
+        }
     }
 
 }

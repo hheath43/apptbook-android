@@ -4,12 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 public class AddApptActivity extends AppCompatActivity {
     public static final String EXTRA_APPT = "Appointment";
@@ -30,7 +26,7 @@ public class AddApptActivity extends AppCompatActivity {
         addAppt.setOnClickListener(view -> sendApptBackToMain());
     }
 
-    private Appointment addAppointment(){
+    private Appointment addNewAppointment(){
         EditText descriptionInput = findViewById(R.id.description_input);
         EditText startDateInput = findViewById(R.id.start_date);
         EditText startTimeInput = findViewById(R.id.start_time);
@@ -61,7 +57,7 @@ public class AddApptActivity extends AppCompatActivity {
     private void sendApptBackToMain() {
 
         Intent intent = new Intent();
-        Appointment appt = addAppointment();
+        Appointment appt = addNewAppointment();
         intent.putExtra(EXTRA_APPT, appt);
         setResult(RESULT_OK, intent);
         finish();
