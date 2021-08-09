@@ -22,6 +22,7 @@ import edu.pdx.cs410J.heathhan.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -83,34 +84,27 @@ public class MainActivity extends AppCompatActivity {
         Button launchViewAll = findViewById(R.id.view_all);
         launchViewAll.setOnClickListener(view -> {
             owner = ownerToString(getOwnerInput());
-            AppointmentBook book = new AppointmentBook(owner);
+            AppointmentBook book = getAppointmentBook(owner);
 
-            if(ownerRequired(getOwnerInput(), owner)) {
-                File file = getFile(owner);
-
-                if (file.exists()) {
-                    TextParser parser = null;
-                    try {
-                        parser = new TextParser(new FileReader(file));
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        assert parser != null;
-                        book = parser.parse();
-                    } catch (ParserException e) {
-                        e.printStackTrace();
-                    }
-
+            if (ownerRequired(getOwnerInput(), owner)) {
+                if (book != null) {
                     Intent intent = new Intent(MainActivity.this, ViewAllActivity.class);
                     intent.putExtra("appointmentBook", book);
                     startActivity(intent);
+
+                } else {
+                    toast("No AppointmentBook for Owner: " + owner);
                 }
-            } else {
-                toast("No AppointmentBook for Owner: " + owner);
             }
 
             //onClick Search Appointments
+            Button launchSearchAppt = findViewById(R.id.search);
+            launchSearchAppt.setOnClickListener((new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            }));
         });
 
     }
@@ -294,5 +288,35 @@ public class MainActivity extends AppCompatActivity {
         return file;
 
     }
+
+    /**
+     *
+     * @param owner
+     * @return
+     */
+    private AppointmentBook getAppointmentBook(String owner) {
+        AppointmentBook book = new AppointmentBook(owner);
+
+        File file = getFile(owner);
+
+        if (file.exists()) {
+            TextParser parser = null;
+            try {
+                parser = new TextParser(new FileReader(file));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                assert parser != null;
+                book = parser.parse();
+            } catch (ParserException e) {
+                e.printStackTrace();
+            }
+            return book;
+        }
+
+        return null;
+    }
+
 
 }
