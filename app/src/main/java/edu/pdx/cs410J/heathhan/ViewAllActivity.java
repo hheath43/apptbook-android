@@ -2,9 +2,12 @@ package edu.pdx.cs410J.heathhan;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -53,6 +56,7 @@ public class ViewAllActivity extends AppCompatActivity {
 
         TextView outputOfAppts = findViewById(R.id.appointments);
         outputOfAppts.setText((CharSequence) text);
+
 
     }
 

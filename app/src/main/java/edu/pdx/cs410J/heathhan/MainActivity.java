@@ -225,43 +225,13 @@ public class MainActivity extends AppCompatActivity {
 
             dialog.show();
 
-            //readme();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void readme() throws IOException {
-        //createAppointmentBookFile("Hannah Heath");
-        /*if(checkFileExists("Hannah Heath")){
-            toast("YES");
-        }
-        else{
-            toast("NO");
-        }*/
-       /* File file = getReadme();
-        if (!file.exists()) {
-            return;
-        }
 
-        try (
-                BufferedReader br = new BufferedReader(new FileReader(file))
-        ) {
-            String line = null;
-            while ((line = br.readLine()) != null) {
-                //display line in a list?
-            }
-
-        }*/
-    }
-
-    @NonNull
-    private File getReadme() {
-        File contextDirectory = getApplicationContext().getDataDir();
-        File readMeFile = new File(contextDirectory, "README.txt");
-        return readMeFile;
-    }
 
 
     private String replaceSpace(String str){
