@@ -30,7 +30,10 @@ public class SearchActivity extends AppCompatActivity {
 
 
     private TextView setStartDate, setStartTime, setEndDate, setEndTime;
-    private String startDate, startTime, endDate, endTime;
+    private String startDate = null;
+    private String startTime = null;
+    private String endDate = null;
+    private String endTime = null;
     private static final int dateStartId = 0;
     private static final int timeStartId = 1;
     private static final int dateEndId = 2;
@@ -86,43 +89,48 @@ public class SearchActivity extends AppCompatActivity {
 
         Button searchButton = findViewById(R.id.search_button);
         searchButton.setOnClickListener(view -> {
-            Date dateStart = convertStringToDate(startDate, startTime);
-            //toast(dateStart.toString());
-            Date dateEnd = convertStringToDate(endDate, endTime);
-            if(dateStart.before(dateEnd)){
-                AppointmentBook tbook = book.searchDates(dateStart, dateEnd);
-                toast(tbook.toString());
+            if(startDate != null && startTime != null && endDate != null && endTime != null) {
 
-                File file = getFile(tbook.getOwnerName());
-                PrettyPrinter pretty;
-                BufferedReader reader;
-                StringBuilder text = new StringBuilder();
-                String line;
+                Date dateStart = convertStringToDate(startDate, startTime);
 
-                try {
-                    pretty = new PrettyPrinter(new FileWriter(file));
-                    pretty.dump(tbook);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Date dateEnd = convertStringToDate(endDate, endTime);
+                if (dateStart.before(dateEnd)) {
+                    AppointmentBook tbook = book.searchDates(dateStart, dateEnd);
+                    toast(tbook.toString());
 
-                try {
-                    reader = new BufferedReader(new FileReader(file));
+                    File file = getFile(tbook.getOwnerName());
+                    PrettyPrinter pretty;
+                    BufferedReader reader;
+                    StringBuilder text = new StringBuilder();
+                    String line;
 
-                    while((line = reader.readLine()) != null){
-                        text.append(line);
-                        text.append('\n');
+                    try {
+                        pretty = new PrettyPrinter(new FileWriter(file));
+                        pretty.dump(tbook);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                    try {
+                        reader = new BufferedReader(new FileReader(file));
+
+                        while ((line = reader.readLine()) != null) {
+                            text.append(line);
+                            text.append('\n');
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    TextView outputOfAppts = findViewById(R.id.search_appts);
+                    outputOfAppts.setText(text);
+
+
+                } else {
+                    toast("Start Date Must Be Before End Date");
                 }
-
-                TextView outputOfAppts = findViewById(R.id.search_appts);
-                outputOfAppts.setText(text);
-
-
             } else {
-                toast("Start Date Must Be Before End Date");
+                toast("Must Select Start Date and Time and End Date and Time");
             }
         });
 
@@ -131,6 +139,8 @@ public class SearchActivity extends AppCompatActivity {
     private void toast(String message) {
         Toast.makeText(SearchActivity.this, message, Toast.LENGTH_LONG).show();
     }
+
+
 
     protected Dialog onCreateDialog(int id) {
         Calendar calendar = Calendar.getInstance();
@@ -234,12 +244,6 @@ public class SearchActivity extends AppCompatActivity {
 
 
 
-
-
-    //*******************************************************************************8
-
-
-
     /**
      * Method to convert Strings to a Date variable
      *
@@ -275,7 +279,7 @@ public class SearchActivity extends AppCompatActivity {
      *      The name of the AppointmentBook owner
      *
      * @return - File
-     *      The owner's file, based on their name
+     *      The owner's file, based on their name with "Search" added
      */
     @NonNull
     private File getFile(String owner){

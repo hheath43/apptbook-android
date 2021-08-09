@@ -28,4 +28,10 @@
     <!-- Strings used throughout -->
     <string name="return_button">Return</string>
 
+    <string name="start_date">Enter Start Date</string>
+    <string name="start_time">Enter Start Time</string>
+    <string name="end_date">Enter End Date</string>
+    <string name="end_time">Enter End Time</string>
+    <string name="search_text">Search</string>
+
 </resources>
