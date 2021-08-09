@@ -1,5 +1,7 @@
 package edu.pdx.cs410J.heathhan;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -22,6 +24,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -122,8 +126,7 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == GET_NEW_APPT && data != null) {
             Appointment appt = (Appointment) data.getSerializableExtra(AddApptActivity.EXTRA_APPT);
             toast("Appointment Added: " + appt);
-            // check file exists
-            //      if it does -> parse file to apptbook object, add appt, then Textdump to file
+
 
             if(checkFileExists(owner)){
                 File file = getFile(owner);
@@ -200,14 +203,29 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Context context = this;
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_readme) {
-            try {
-                readme();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // custom dialog
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.custom);
+            dialog.setTitle("README");
+
+            TextView text = (TextView) dialog.findViewById(R.id.readme);
+            text.setText("README\n\n " +
+                    "Hannah Heath - heathhan@pdx.edu \n" +
+                    "Project 5\n\n\n " +
+                    "Enter the appointment book's owner that you want to work with.\n\n" +
+                    "Options include: Create AppointmentBook, Add Appointment, View All Appointments, and Search Appointments\n\n" +
+                    "Create AppointmentBook - creates a new AppointmentBook for the owner\n\n" +
+                    "Add Appointment - creates a new appointment for the given owner\n\n" +
+                    "View All Appointments - shows all appointments for a given owner\n\n" +
+                    "Search Appointments - searches a given owners appointments that fall between two dates and times.\n");
+
+            dialog.show();
+
+            //readme();
             return true;
         }
 
