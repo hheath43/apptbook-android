@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+  <!--  <TextView
+        android:id="@+id/search_start"
+        android:layout_width="100pt"
+        android:layout_height="20pt"
+        android:layout_weight="1"
+        android:layout_marginEnd="75pt"
+        android:layout_marginBottom="10pt"
+        android:layout_marginTop="10pt"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@id/search_start_date_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />-->
+
+        <Button
+            android:id="@+id/select_start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Select Date" />
+
+        <TextView
+            android:id="@+id/set_start_date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/select_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Select Time" />
+
+        <TextView
+            android:id="@+id/set_start_time"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/select_end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Select Date" />
+
+        <TextView
+            android:id="@+id/set_end_date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/select_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Select Time" />
+
+        <TextView
+            android:id="@+id/set_end_time"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/search_appts" />
+
+        <!--<TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="102dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:text="" />
+
+        <TimePicker
+            android:id="@+id/timePicker1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <DatePicker
+            android:id="@+id/datePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:text="Change Date" /> -->
+
+        <!-- <LinearLayout
+            android:id="@+id/search_start_date_time"
+            android:layout_width="wrap_content"
+            android:layout_height="20pt"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/search_end_text"
+            app:layout_constraintTop_toBottomOf="@id/search_start"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="1dp">
+
+
+            <EditText
+                android:id="@+id/search_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="date" />
+
+
+            <EditText
+                android:id="@+id/search_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="time" />
+
+            <EditText
+                android:id="@+id/search_start_marker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
+
+
+        </LinearLayout>
+
+            <TextView
+                android:id="@+id/search_end_text"
+                android:layout_width="100pt"
+                android:layout_height="20pt"
+                android:layout_marginTop="10pt"
+                android:layout_marginBottom="10pt"
+                android:layout_weight="1"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@id/search_end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_start_date_time" />
+
+            <LinearLayout
+                android:id="@+id/search_end"
+                android:layout_width="wrap_content"
+                android:layout_height="20pt"
+                android:layout_marginBottom="10pt"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@id/search_appts"
+                app:layout_constraintTop_toBottomOf="@id/search_end_text">
+
+                <EditText
+                    android:id="@+id/editTextDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="date" />
+
+                <EditText
+                    android:id="@+id/editTextTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="time" />
+
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Name" />
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/button_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Button" />
+
+     <TextView
+              android:id="@+id/search_appts"
+              android:layout_width="175pt"
+              android:layout_height="125pt"
+              android:layout_weight="1"
+              android:text="TextView"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/search_end"/>
+    -->
+
+    </LinearLayout>
+</ScrollView>

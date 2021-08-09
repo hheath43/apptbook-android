@@ -83,29 +83,38 @@ public class MainActivity extends AppCompatActivity {
         //onClick ViewAll Appointments
         Button launchViewAll = findViewById(R.id.view_all);
         launchViewAll.setOnClickListener(view -> {
-            owner = ownerToString(getOwnerInput());
-            AppointmentBook book = getAppointmentBook(owner);
+                    owner = ownerToString(getOwnerInput());
+                    AppointmentBook book = getAppointmentBook(owner);
 
-            if (ownerRequired(getOwnerInput(), owner)) {
-                if (book != null) {
-                    Intent intent = new Intent(MainActivity.this, ViewAllActivity.class);
-                    intent.putExtra("appointmentBook", book);
-                    startActivity(intent);
+                    if (ownerRequired(getOwnerInput(), owner)) {
+                        if (book != null) {
+                            Intent intent = new Intent(MainActivity.this, ViewAllActivity.class);
+                            intent.putExtra("appointmentBook", book);
+                            startActivity(intent);
 
-                } else {
-                    toast("No AppointmentBook for Owner: " + owner);
-                }
-            }
+                        } else {
+                            toast("No AppointmentBook for Owner: " + owner);
+                        }
+                    }
+                });
 
             //onClick Search Appointments
             Button launchSearchAppt = findViewById(R.id.search);
-            launchSearchAppt.setOnClickListener((new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            launchSearchAppt.setOnClickListener(view -> {
+                owner = ownerToString(getOwnerInput());
+                AppointmentBook book1 = getAppointmentBook(owner);
 
+                if (ownerRequired(getOwnerInput(), owner)) {
+                    if (book1 != null) {
+                        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                        intent.putExtra("appointmentBook", book1);
+                        startActivity(intent);
+
+                    } else {
+                        toast("No AppointmentBook for Owner: " + owner);
+                    }
                 }
-            }));
-        });
+            });
 
     }
 
