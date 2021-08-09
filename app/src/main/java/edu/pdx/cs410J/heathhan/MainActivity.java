@@ -1,20 +1,20 @@
 package edu.pdx.cs410J.heathhan;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
+//import android.view.View;
 
 
-import androidx.navigation.ui.AppBarConfiguration;
+//import androidx.navigation.ui.AppBarConfiguration;
 
 
 import edu.pdx.cs410J.ParserException;
@@ -24,7 +24,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,11 +35,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
+/**
+ * Class for the Main Activity/Entry Point
+ */
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
     public static final int GET_NEW_APPT = 42;
     private String owner = null;
 
@@ -49,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        //private AppBarConfiguration appBarConfiguration;
+        edu.pdx.cs410J.heathhan.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
@@ -57,44 +57,38 @@ public class MainActivity extends AppCompatActivity {
 
         //OnClick Create AppointmentBook
         Button launchApptBook = findViewById(R.id.create_apptbook);
-        launchApptBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                owner = ownerToString(getOwnerInput());
+        launchApptBook.setOnClickListener(view -> {
+            owner = ownerToString(getOwnerInput());
 
-                if(ownerRequired(getOwnerInput(), owner)) {
-                    createAppointmentBookFile(owner);
-                    String message = "AppointmentBook Created for: " + owner;
-                    toast(message);
-                }
-
+            if(ownerRequired(getOwnerInput(), owner)) {
+                createAppointmentBookFile(owner);
+                String message = "AppointmentBook Created for: " + owner;
+                toast(message);
             }
+
         });
 
         //onClick Add Appointment
         Button launchAddAppt = findViewById(R.id.add_appt);
-        launchAddAppt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                owner = ownerToString(getOwnerInput());
+        launchAddAppt.setOnClickListener(view -> {
+            owner = ownerToString(getOwnerInput());
 
-                if(ownerRequired(getOwnerInput(), owner)) {
-                    Intent intent = new Intent(MainActivity.this, AddApptActivity.class);
-                    startActivityForResult(intent, GET_NEW_APPT);
-                }
+            if(ownerRequired(getOwnerInput(), owner)) {
+                Intent intent = new Intent(MainActivity.this, AddApptActivity.class);
+                startActivityForResult(intent, GET_NEW_APPT);
             }
         });
 
         //onClick ViewAll Appointments
         Button launchViewAll = findViewById(R.id.view_all);
-        launchViewAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                owner = ownerToString(getOwnerInput());
-                AppointmentBook book = new AppointmentBook(owner);
+        launchViewAll.setOnClickListener(view -> {
+            owner = ownerToString(getOwnerInput());
+            AppointmentBook book = new AppointmentBook(owner);
 
-                if(ownerRequired(getOwnerInput(), owner)) {
-                    File file = getFile(owner);
+            if(ownerRequired(getOwnerInput(), owner)) {
+                File file = getFile(owner);
+
+                if (file.exists()) {
                     TextParser parser = null;
                     try {
                         parser = new TextParser(new FileReader(file));
@@ -102,7 +96,8 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     try {
-                       book = parser.parse();
+                        assert parser != null;
+                        book = parser.parse();
                     } catch (ParserException e) {
                         e.printStackTrace();
                     }
@@ -111,7 +106,11 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("appointmentBook", book);
                     startActivity(intent);
                 }
+            } else {
+                toast("No AppointmentBook for Owner: " + owner);
             }
+
+            //onClick Search Appointments
         });
 
     }
@@ -167,13 +166,11 @@ public class MainActivity extends AppCompatActivity {
      *      Owner input returned as String
      */
     private String ownerToString(EditText ownerInput){
-        String owner = ownerInput.getText().toString();
-        return owner;
+        return ownerInput.getText().toString();
     }
 
     private EditText getOwnerInput(){
-        EditText ownerInput = findViewById(R.id.owner_input);
-        return ownerInput;
+        return findViewById(R.id.owner_input);
     }
 
     private Boolean ownerRequired(EditText ownerInput, String owner){
@@ -197,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -212,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
             dialog.setContentView(R.layout.custom);
             dialog.setTitle("README");
 
-            TextView text = (TextView) dialog.findViewById(R.id.readme);
+            TextView text = dialog.findViewById(R.id.readme);
             text.setText("README\n\n " +
                     "Hannah Heath - heathhan@pdx.edu \n" +
                     "Project 5\n\n\n " +
@@ -248,21 +246,32 @@ public class MainActivity extends AppCompatActivity {
         return file.exists();
     }
 
+    /**
+     * Method to get the owner's file
+     *
+     * @param owner -
+     *      The name of the AppointmentBook owner
+     *
+     * @return - File
+     *      The owner's file, based on their name
+     */
+    @NonNull
     private File getFile(String owner){
         String str = replaceSpace(owner);
         str = str + ".txt";
 
         File contextDirectory = getApplicationContext().getDataDir();
-        File file = new File(contextDirectory, str);
 
-        return file;
+        return new File(contextDirectory, str);
     }
 
     /**
      * Creates a file with the owners name and writes the owner to it.
      *
      * @param owner
+     *      The name of the AppointmentBook owner
      */
+    @NonNull
     private File createAppointmentBookFile(String owner){
         String str = replaceSpace(owner);
         str = str + ".txt";
@@ -271,7 +280,6 @@ public class MainActivity extends AppCompatActivity {
         File contextDirectory = getApplicationContext().getDataDir();
         File file = new File(contextDirectory, str);
 
-        //REPLACE WITH TEXTDUMPER?
         try (
                 PrintWriter pw = new PrintWriter(new FileWriter(file))
         ) {

@@ -1,24 +1,23 @@
 package edu.pdx.cs410J.heathhan;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
 
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Activity for viewing all Appointments in an owner's AppointmentBook
+ *
+ */
 public class ViewAllActivity extends AppCompatActivity {
-    private ArrayAdapter<Appointment> appointments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,7 @@ public class ViewAllActivity extends AppCompatActivity {
         PrettyPrinter pretty;
         BufferedReader reader;
         StringBuilder text = new StringBuilder();
-        String line = null;
+        String line;
 
         Bundle b = getIntent().getExtras();
         AppointmentBook book = (AppointmentBook) b.get("appointmentBook");
@@ -47,27 +46,25 @@ public class ViewAllActivity extends AppCompatActivity {
                 text.append(line);
                 text.append('\n');
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
         TextView outputOfAppts = findViewById(R.id.appointments);
-        outputOfAppts.setText((CharSequence) text);
+        outputOfAppts.setText(text);
 
 
     }
 
+    @NonNull
     private File getFile(String owner){
         String str = replaceSpace(owner);
         str = str + "2" + ".txt";
 
         File contextDirectory = getApplicationContext().getDataDir();
-        File file = new File(contextDirectory, str);
 
-        return file;
+        return new File(contextDirectory, str);
     }
 
     private String replaceSpace(String str){
