@@ -92,6 +92,12 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="@string/search_appts" />
+        <TextView
+            android:id="@+id/search_appts"
+            android:layout_width="175pt"
+            android:layout_height="125pt"
+            android:layout_weight="1"
+            android:text="TextView" />
 
         <!--<TextView
             android:id="@+id/textView1"

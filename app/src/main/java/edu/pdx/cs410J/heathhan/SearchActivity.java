@@ -1,27 +1,30 @@
 package edu.pdx.cs410J.heathhan;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.material.timepicker.TimeFormat;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.Calendar;
 import java.util.Date;
+
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -38,14 +41,10 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        PrettyPrinter pretty;
-        BufferedReader reader;
-        StringBuilder text = new StringBuilder();
-        String line;
 
+        //Get items from MainActivity
         Bundle b = getIntent().getExtras();
         AppointmentBook book = (AppointmentBook) b.get("appointmentBook");
-        //File file = getFile(book.getOwnerName());
 
         //Start Date Search Button
         Button startDateButton = findViewById(R.id.select_start_date);
@@ -91,10 +90,39 @@ public class SearchActivity extends AppCompatActivity {
             //toast(dateStart.toString());
             Date dateEnd = convertStringToDate(endDate, endTime);
             if(dateStart.before(dateEnd)){
-                toast("BEFORE");
-            }
-            else{
-                toast("After");
+                AppointmentBook tbook = book.searchDates(dateStart, dateEnd);
+                toast(tbook.toString());
+
+                File file = getFile(tbook.getOwnerName());
+                PrettyPrinter pretty;
+                BufferedReader reader;
+                StringBuilder text = new StringBuilder();
+                String line;
+
+                try {
+                    pretty = new PrettyPrinter(new FileWriter(file));
+                    pretty.dump(tbook);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    reader = new BufferedReader(new FileReader(file));
+
+                    while((line = reader.readLine()) != null){
+                        text.append(line);
+                        text.append('\n');
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                TextView outputOfAppts = findViewById(R.id.search_appts);
+                outputOfAppts.setText(text);
+
+
+            } else {
+                toast("Start Date Must Be Before End Date");
             }
         });
 
@@ -106,18 +134,18 @@ public class SearchActivity extends AppCompatActivity {
 
     protected Dialog onCreateDialog(int id) {
         Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
+        int yr = calendar.get(Calendar.YEAR);
+        int mon = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int hr = 12;
+        int hr = 0;
         int min = 0;
 
 
         switch (id) {
             case dateStartId:
 
-                return new DatePickerDialog(SearchActivity.this, date_start_listener, year,
-                        month, day);
+                return new DatePickerDialog(SearchActivity.this, date_start_listener, yr,
+                        mon, day);
             case timeStartId:
 
                 return new TimePickerDialog(SearchActivity.this, time_start_listener, hr,
@@ -125,7 +153,7 @@ public class SearchActivity extends AppCompatActivity {
 
             case dateEndId:
 
-                return new DatePickerDialog(SearchActivity.this, date_end_listener, year, month, day);
+                return new DatePickerDialog(SearchActivity.this, date_end_listener, yr, mon, day);
 
             case timeEndId:
 
@@ -139,9 +167,9 @@ public class SearchActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener date_start_listener = new DatePickerDialog.OnDateSetListener() {
 
         @Override
-        public void onDateSet(DatePicker view, int year, int month, int day) {
+        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
 
-            startDate = (month + 1) + "/" + day + "/" + year;
+            startDate = (mm + 1) + "/" + dd + "/" + yy;
             setStartDate.setText(startDate);
 
         }
@@ -149,22 +177,22 @@ public class SearchActivity extends AppCompatActivity {
     TimePickerDialog.OnTimeSetListener time_start_listener = new TimePickerDialog.OnTimeSetListener() {
 
         @Override
-        public void onTimeSet(TimePicker view, int hr, int min) {
+        public void onTimeSet(TimePicker view, int hh, int mm) {
             String marker;
 
-            if(hr == 12){
+            if(hh == 12){
                 marker = "PM";
-            } else if(hr > 12){
-                hr -= 12;
+            } else if(hh > 12){
+                hh -= 12;
                 marker = "PM";
-            } else if(hr == 0){
-                hr += 12;
+            } else if(hh == 0){
+                hh += 12;
                 marker = "AM";
             } else {
                 marker = "AM";
             }
 
-            startTime = hr + ":" + min + " " + marker;
+            startTime = hh + ":" + mm + " " + marker;
             setStartTime.setText(startTime);
         }
 
@@ -173,9 +201,8 @@ public class SearchActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener date_end_listener = new DatePickerDialog.OnDateSetListener() {
 
         @Override
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            // store the data in one string and set it to text
-            endDate = (month + 1) + "/" + day + "/" + year;
+        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
+            endDate = (mm + 1) + "/" + dd + "/" + yy;
             setEndDate.setText(endDate);
 
         }
@@ -183,22 +210,22 @@ public class SearchActivity extends AppCompatActivity {
     TimePickerDialog.OnTimeSetListener time_end_listener = new TimePickerDialog.OnTimeSetListener() {
 
         @Override
-        public void onTimeSet(TimePicker view, int hr, int min) {
+        public void onTimeSet(TimePicker view, int hh, int mm) {
             String marker;
 
-            if(hr == 12){
+            if(hh == 12){
                 marker = "PM";
-            } else if(hr > 12){
-                hr -= 12;
+            } else if(hh > 12){
+                hh -= 12;
                 marker = "PM";
-            } else if(hr == 0){
-                hr += 12;
+            } else if(hh == 0){
+                hh += 12;
                 marker = "AM";
             } else {
                 marker = "AM";
             }
 
-            endTime = hr + ":" + min + " " + marker;
+            endTime = hh + ":" + mm + " " + marker;
             setEndTime.setText(endTime);
         }
 
@@ -241,6 +268,29 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Method to get the owner's file
+     *
+     * @param owner -
+     *      The name of the AppointmentBook owner
+     *
+     * @return - File
+     *      The owner's file, based on their name
+     */
+    @NonNull
+    private File getFile(String owner){
+        String str = replaceSpace(owner);
+        str = str + "Search" + ".txt";
+
+        File contextDirectory = getApplicationContext().getDataDir();
+
+        return new File(contextDirectory, str);
+    }
+
+    private String replaceSpace(String str){
+        str = str.replace(" ", "_");
+        return str;
+    }
 
 
 
