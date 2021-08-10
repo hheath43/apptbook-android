@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     dumper.dump(book);
 
                 } catch (ParserException | IOException e) {
-                    e.printStackTrace();
+                    toast("Error while reading or writing file: " + e.getMessage());
                 }
 
             } else {
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                     dumper = new TextDumper(new FileWriter(file));
                     dumper.dump(book);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    toast("Error while writing file: " + e.getMessage());
                 }
             }
 
@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
 
             pw.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            toast("Error while writing file: " + e.getMessage());
         }
 
         return file;
@@ -319,13 +319,13 @@ public class MainActivity extends AppCompatActivity {
             try {
                 parser = new TextParser(new FileReader(file));
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                toast("Error while reading file: " + e.getMessage());
             }
             try {
                 assert parser != null;
                 book = parser.parse();
             } catch (ParserException e) {
-                e.printStackTrace();
+                toast("Error while parsing file: " + e.getMessage());
             }
             return book;
         }

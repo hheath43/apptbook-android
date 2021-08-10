@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,7 +37,7 @@ public class ViewAllActivity extends AppCompatActivity {
             pretty = new PrettyPrinter(new FileWriter(file));
             pretty.dump(book);
         } catch (IOException e) {
-            e.printStackTrace();
+            toast("Error while writing file: " + e.getMessage());
         }
 
         try {
@@ -47,7 +48,7 @@ public class ViewAllActivity extends AppCompatActivity {
                 text.append('\n');
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            toast("Error while reading file: " + e.getMessage());
         }
 
 
@@ -70,6 +71,10 @@ public class ViewAllActivity extends AppCompatActivity {
     private String replaceSpace(String str){
         str = str.replace(" ", "_");
         return str;
+    }
+
+    private void toast(String message) {
+        Toast.makeText(ViewAllActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
 }

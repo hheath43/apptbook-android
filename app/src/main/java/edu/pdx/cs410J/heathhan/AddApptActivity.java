@@ -82,7 +82,7 @@ public class AddApptActivity extends AppCompatActivity {
             return this.appt;
         }
 
-        return appt;
+        return this.appt;
 
 
 

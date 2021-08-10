@@ -108,7 +108,7 @@ public class SearchActivity extends AppCompatActivity {
                         pretty = new PrettyPrinter(new FileWriter(file));
                         pretty.dump(tbook);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        toast("Error while writing file: " + e.getMessage());
                     }
 
                     try {
@@ -119,7 +119,7 @@ public class SearchActivity extends AppCompatActivity {
                             text.append('\n');
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        toast("Error while reading file: " + e.getMessage());
                     }
 
                     TextView outputOfAppts = findViewById(R.id.search_appts);
@@ -139,7 +139,6 @@ public class SearchActivity extends AppCompatActivity {
     private void toast(String message) {
         Toast.makeText(SearchActivity.this, message, Toast.LENGTH_LONG).show();
     }
-
 
 
     protected Dialog onCreateDialog(int id) {
@@ -184,6 +183,8 @@ public class SearchActivity extends AppCompatActivity {
 
         }
     };
+
+
     TimePickerDialog.OnTimeSetListener time_start_listener = new TimePickerDialog.OnTimeSetListener() {
 
         @Override
@@ -260,13 +261,13 @@ public class SearchActivity extends AppCompatActivity {
      *         New Date variable returned
      *
      */
-    private static Date convertStringToDate(String date, String time/*, String marker*/) {
-        String str = date + " " + time /*+ " " + marker*/;
+    private Date convertStringToDate(String date, String time) {
+        String str = date + " " + time;
         Date d = null;
         try {
             d = new SimpleDateFormat("M/d/yy h:mm a").parse(str); //h:mm a
         } catch (ParseException e) {
-            e.printStackTrace();
+            toast(new StringBuilder().append("Error while parsing string to date: ").append(e.getMessage()).toString());
         }
         return d;
     }
