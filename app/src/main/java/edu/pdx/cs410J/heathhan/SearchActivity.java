@@ -96,7 +96,7 @@ public class SearchActivity extends AppCompatActivity {
                 Date dateEnd = convertStringToDate(endDate, endTime);
                 if (dateStart.before(dateEnd)) {
                     AppointmentBook tbook = book.searchDates(dateStart, dateEnd);
-                    toast(tbook.toString());
+
 
                     File file = getFile(tbook.getOwnerName());
                     PrettyPrinter pretty;
