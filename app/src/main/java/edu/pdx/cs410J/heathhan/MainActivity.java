@@ -54,12 +54,21 @@ public class MainActivity extends AppCompatActivity {
         //OnClick Create AppointmentBook
         Button launchApptBook = findViewById(R.id.create_apptbook);
         launchApptBook.setOnClickListener(view -> {
+            String message;
             owner = ownerToString(getOwnerInput());
 
             if(ownerRequired(getOwnerInput(), owner)) {
-                createAppointmentBookFile(owner);
-                String message = "AppointmentBook Created for: " + owner;
+                File file = getFile(owner);
+                if(!file.exists()){
+                    createAppointmentBookFile(owner);
+                    message = "AppointmentBook Created for: " + owner;
+                } else {
+                    message = "AppointmentBook for: " + owner + " already exists";
+                }
+
                 toast(message);
+                EditText clear = getOwnerInput();
+                clear.getText().clear();
             }
 
         });
@@ -73,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, AddApptActivity.class);
                 startActivityForResult(intent, GET_NEW_APPT);
             }
+
+            EditText clear = getOwnerInput();
+            clear.getText().clear();
         });
 
         //onClick ViewAll Appointments
@@ -91,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
                             toast("No AppointmentBook for Owner: " + owner);
                         }
                     }
+
+                    EditText clear = getOwnerInput();
+                    clear.getText().clear();
                 });
 
             //onClick Search Appointments
@@ -109,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
                         toast("No AppointmentBook for Owner: " + owner);
                     }
                 }
+                EditText clear = getOwnerInput();
+                clear.getText().clear();
             });
 
     }
@@ -182,10 +199,25 @@ public class MainActivity extends AppCompatActivity {
         return ownerInput.getText().toString();
     }
 
+
+    /**
+     * Get the EditText input for Owner name
+     *
+     * @return - EditText
+     *
+     */
     private EditText getOwnerInput(){
         return findViewById(R.id.owner_input);
     }
 
+    /**
+     * Method to check owner field was inputted
+     *
+     * @param ownerInput - EditText to set error/hint if not
+     * @param owner - String to check isn't empty
+     *
+     * @return - Boolean value
+     */
     private Boolean ownerRequired(EditText ownerInput, String owner){
         if(owner.trim().equals("")) {
             ownerInput.setError("Owner Name is Required");
@@ -251,11 +283,11 @@ public class MainActivity extends AppCompatActivity {
                     "Hannah Heath - heathhan@pdx.edu \n" +
                     "Project 5\n\n\n " +
                     "Enter the appointment book's owner that you want to work with.\n\n" +
-                    "Options include: Create AppointmentBook, Add Appointment, View All Appointments, and Search Appointments\n\n" +
                     "Create AppointmentBook - creates a new AppointmentBook for the owner\n\n" +
                     "Add Appointment - creates a new appointment for the given owner\n\n" +
                     "View All Appointments - shows all appointments for a given owner\n\n" +
-                    "Search Appointments - searches a given owners appointments that fall between two dates and times.\n");
+                    "Search Appointments - searches a given owners appointments that fall between two dates and times.\n\n" +
+                    "** Click anywhere outside box to exit **");
 
             dialog.show();
 
@@ -330,7 +362,6 @@ public class MainActivity extends AppCompatActivity {
     private File createAppointmentBookFile(String owner){
         String str = replaceSpace(owner);
         str = str + ".txt";
-        System.out.println(str);
 
         File contextDirectory = getApplicationContext().getDataDir();
         File file = new File(contextDirectory, str);
