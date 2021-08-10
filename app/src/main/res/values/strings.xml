@@ -24,6 +24,7 @@
     <string name="time_ex">ex: 05:30</string>
     <string name="marker_ex">am/pm</string>
     <string name="add_appointment">Add Appointment</string>
+    <string name="hint_err"><font size='5pt'></font></string>
 
     <!-- Strings used throughout -->
     <string name="return_button">Return</string>
