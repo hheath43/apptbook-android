@@ -127,7 +127,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
                 } else {
-                    toast("Start Date Must Be Before End Date");
+                    toast("End Must Be After Start");
                 }
             } else {
                 toast("Must Select Start Date and Time and End Date and Time");

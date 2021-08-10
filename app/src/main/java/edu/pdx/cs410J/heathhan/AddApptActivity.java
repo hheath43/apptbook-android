@@ -63,21 +63,26 @@ public class AddApptActivity extends AppCompatActivity {
         } else if(!this.startMarker.equalsIgnoreCase("AM") && !startMarker.equalsIgnoreCase("PM")){
             startMarkerInput.setError("Please Enter a Valid Time Marker ex: AM/PM");
             toast("Please Enter a Valid Time Marker ex: AM/PM");
-        }
-        else if(!validateDate(this.endDate)){
+        } else if(!validateDate(this.endDate)){
             endDateInput.setError("Please Enter a Valid Date ex: MM/DD/YYYY");
             toast("Please Enter a Valid Date ex: MM/DD/YYYY");
         } else if(!validateTime(this.endTime)) {
             endTimeInput.setError("Please Enter a Valid Time ex: HH:MM");
             toast("Please Enter a Valid Time ex: HH:MM");
-        }else if(!this.endMarker.equalsIgnoreCase("AM") && !endMarker.equalsIgnoreCase("PM")){
+        } else if(!this.endMarker.equalsIgnoreCase("AM") && !endMarker.equalsIgnoreCase("PM")){
             endMarkerInput.setError("Please Enter a Valid Time Marker ex: AM/PM");
             toast("Please Enter a Valid Time Marker ex: AM/PM");
+        } else if(!endIsAfterBegin(this.startDate, this.startTime, this.startMarker, this.endDate, this.endTime, this.endMarker)){
+            endDateInput.setError("End Of Appointment Must Be After Start");
+            endTimeInput.setError("End Of Appointment Must Be After Start");
+            endMarkerInput.setError("End Of Appointment Must Be After Start");
+            toast("End Of Appointment Must Be After Start");
+        } else {
+            this.appt = new Appointment(this.description, this.startDate, this.startTime, this.startMarker, this.endDate, this.endTime, this.endMarker);
+            return this.appt;
         }
 
-
-        this.appt = new Appointment(this.description, this.startDate, this.startTime, this.startMarker, this.endDate, this.endTime, this.endMarker);
-        return this.appt;
+        return appt;
 
 
 

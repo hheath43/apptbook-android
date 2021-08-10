@@ -125,8 +125,14 @@ public class MainActivity extends AppCompatActivity {
         TextParser parser;
         AppointmentBook book;
 
+
+
         if (resultCode == RESULT_OK && requestCode == GET_NEW_APPT && data != null) {
             Appointment appt = (Appointment) data.getSerializableExtra(AddApptActivity.EXTRA_APPT);
+
+            if(appt == null){
+                return;
+            }
             toast("Appointment Added: " + appt);
 
 
