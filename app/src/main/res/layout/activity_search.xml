@@ -18,7 +18,6 @@
         android:layout_margin="5pt"
         android:textSize="10pt"
         android:textColor="@color/black"
-        android:textFontWeight="5"
         android:textStyle="bold"
         android:gravity="center"
         android:padding="10dp"
