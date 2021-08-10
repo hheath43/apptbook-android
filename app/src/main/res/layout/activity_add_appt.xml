@@ -24,6 +24,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5pt"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="8pt"
             android:text="@string/description"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="130dp" />
@@ -33,6 +36,8 @@
             android:layout_width="356dp"
             android:layout_height="20pt"
             android:layout_margin="5pt"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:ems="10"
             android:hint="@string/description_ex"
             android:inputType="none"
@@ -44,7 +49,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5pt"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:text="@string/start_date_time"
+            android:textSize="8pt"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="275dp" />
 
@@ -65,6 +73,8 @@
                 android:layout_height="20pt"
                 android:ems="10"
                 android:inputType="date"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:hint="@string/date_ex"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="310dp" />
@@ -77,6 +87,8 @@
                 android:ems="10"
                 android:inputType="time"
                 android:hint="@string/time_ex"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 tools:layout_editor_absoluteX="201dp"
                 tools:layout_editor_absoluteY="310dp" />
 
@@ -85,6 +97,8 @@
                 android:layout_width="68dp"
                 android:layout_height="20pt"
                 android:layout_marginLeft="5pt"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:ems="10"
                 android:hint="@string/marker_ex"
                 android:inputType="text"
@@ -99,6 +113,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="5pt"
             android:text="@string/end_date_time"
+            android:textSize="8pt"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             tools:layout_editor_absoluteX="21dp"
             tools:layout_editor_absoluteY="380dp" />
 
@@ -117,6 +134,8 @@
                 android:layout_height="20pt"
                 android:ems="10"
                 android:hint="@string/date_ex"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:inputType="date"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="419dp" />
@@ -130,6 +149,8 @@
                 android:ems="10"
                 android:hint="@string/time_ex"
                 android:inputType="time"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="419dp" />
 
@@ -140,6 +161,8 @@
                 android:layout_marginLeft="5pt"
                 android:ems="10"
                 android:hint="@string/marker_ex"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:inputType="text"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="419dp" />
