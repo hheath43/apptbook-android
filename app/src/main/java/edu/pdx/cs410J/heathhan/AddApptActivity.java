@@ -4,13 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.time.LocalDateTime;
 
+
+/**
+ * This activity represents when a user adds and appointment
+ */
 public class AddApptActivity extends AppCompatActivity {
     public static final String EXTRA_APPT = "Appointment";
     private Appointment appt = null;
@@ -33,6 +36,12 @@ public class AddApptActivity extends AppCompatActivity {
         returnAppt.setOnClickListener(view -> sendApptBackToMain());
     }
 
+    /**
+     * Method to grab the user input, check it, and create an appointment
+     *
+     * @return - Appointment
+     *         The new appointment to be added
+     */
     private Appointment addNewAppointment(){
         EditText descriptionInput = findViewById(R.id.description_input);
         EditText startDateInput = findViewById(R.id.start_date);
@@ -88,6 +97,9 @@ public class AddApptActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method that sends the appointment to MainActivity
+     */
     private void sendApptBackToMain() {
 
         Intent intent = new Intent();
@@ -98,7 +110,12 @@ public class AddApptActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Method to output small message to user
+     *
+     * @param message
+     *      String to be outputted
+     */
     private void toast(String message) {
         Toast.makeText(AddApptActivity.this, message, Toast.LENGTH_LONG).show();
     }

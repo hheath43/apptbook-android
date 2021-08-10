@@ -22,10 +22,16 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
-
+/**
+ * Activity for searching an AppointmentBook between two times
+ */
 public class SearchActivity extends AppCompatActivity {
 
 
@@ -136,11 +142,27 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * Method to output small message to user
+     *
+     * @param message
+     *      String to be outputted
+     */
     private void toast(String message) {
         Toast.makeText(SearchActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
 
+    /**
+     * Method for onClick of the Dialogs
+     *
+     * @param id - int
+     *          Different id for each Date/Time Picker
+     *
+     * @return - Dialog
+     *         Returns the correct Dialog per id number argument
+     */
     protected Dialog onCreateDialog(int id) {
         Calendar calendar = Calendar.getInstance();
         int yr = calendar.get(Calendar.YEAR);
@@ -172,7 +194,9 @@ public class SearchActivity extends AppCompatActivity {
         return null;
     }
 
-    // Date picker dialog
+    /**
+     * Date Picker for Start Date
+     */
     DatePickerDialog.OnDateSetListener date_start_listener = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -184,7 +208,9 @@ public class SearchActivity extends AppCompatActivity {
         }
     };
 
-
+    /**
+     * Time Picker for Start Time
+     */
     TimePickerDialog.OnTimeSetListener time_start_listener = new TimePickerDialog.OnTimeSetListener() {
 
         @Override
@@ -209,6 +235,9 @@ public class SearchActivity extends AppCompatActivity {
 
     };
 
+    /**
+     * Date Picker for End Date
+     */
     DatePickerDialog.OnDateSetListener date_end_listener = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -218,6 +247,10 @@ public class SearchActivity extends AppCompatActivity {
 
         }
     };
+
+    /**
+     * Time Picker for End Time
+     */
     TimePickerDialog.OnTimeSetListener time_end_listener = new TimePickerDialog.OnTimeSetListener() {
 
         @Override
@@ -265,7 +298,7 @@ public class SearchActivity extends AppCompatActivity {
         String str = date + " " + time;
         Date d = null;
         try {
-            d = new SimpleDateFormat("M/d/yy h:mm a").parse(str); //h:mm a
+            d = new SimpleDateFormat("M/d/yy h:mm a").parse(str);
         } catch (ParseException e) {
             toast(new StringBuilder().append("Error while parsing string to date: ").append(e.getMessage()).toString());
         }
@@ -292,6 +325,16 @@ public class SearchActivity extends AppCompatActivity {
         return new File(contextDirectory, str);
     }
 
+
+    /**
+     * Method to replace a string with '_'
+     *
+     * @param str
+     *      String of the owner's name
+     *
+     * @return - String
+     *      New String with no spaces in owner's name
+     */
     private String replaceSpace(String str){
         str = str.replace(" ", "_");
         return str;

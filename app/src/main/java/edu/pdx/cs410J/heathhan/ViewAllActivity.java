@@ -58,6 +58,15 @@ public class ViewAllActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method to get the owner's file, but adds a '2' on the end for PrettyPrinting
+     *
+     * @param owner -
+     *      The name of the AppointmentBook owner
+     *
+     * @return - File
+     *      The owner's file, based on their name
+     */
     @NonNull
     private File getFile(String owner){
         String str = replaceSpace(owner);
@@ -68,11 +77,27 @@ public class ViewAllActivity extends AppCompatActivity {
         return new File(contextDirectory, str);
     }
 
+    /**
+     * Method to replace a string with '_'
+     *
+     * @param str
+     *      String of the owner's name
+     *
+     * @return - String
+     *      New String with no spaces in owner's name
+     */
     private String replaceSpace(String str){
         str = str.replace(" ", "_");
         return str;
     }
 
+
+    /**
+     * Method to output small message to user
+     *
+     * @param message
+     *      String to be outputted
+     */
     private void toast(String message) {
         Toast.makeText(ViewAllActivity.this, message, Toast.LENGTH_LONG).show();
     }

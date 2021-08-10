@@ -22,6 +22,7 @@ public class PrettyPrinter implements AppointmentBookDumper<AppointmentBook> {
 
     }
 
+
     /**
      * Creates a new <code>PrettyPrinter</code> For file
      *
@@ -69,6 +70,7 @@ public class PrettyPrinter implements AppointmentBookDumper<AppointmentBook> {
             throw new IOException("File could not be found" + e);
         }
     }
+
 
     /**
      * Method to StandardOut an appointment book nicely.

@@ -11,10 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-//import android.view.View;
-
-
-//import androidx.navigation.ui.AppBarConfiguration;
 
 
 import edu.pdx.cs410J.ParserException;
@@ -22,7 +18,6 @@ import edu.pdx.cs410J.heathhan.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -118,6 +113,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * Method to grab the Appointment sent back from AddApptActivity
+     *
+     * @param requestCode - Code to verify correct Activity
+     * @param resultCode - Code to check successful
+     * @param data - Appointment
+     *
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -191,11 +195,25 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+    /**
+     * Method to output small message to user
+     *
+     * @param message
+     *      String to be outputted
+     */
     private void toast(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
 
+    /**
+     * Method for onClick of the options menu
+     *
+     * @param menu - menu on main activity
+     *
+     * @return - boolean
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -203,6 +221,15 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+    /**
+     * Custom Dialog info when clicked
+     *
+     * @param item - README item
+     *
+     * @return - Boolean
+     *      True if Item clicked, False if not
+     */
     @SuppressLint("SetTextI18n")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -239,13 +266,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
+    /**
+     * Method to replace a string with '_'
+     *
+     * @param str
+     *      String of the owner's name
+     *
+     * @return - String
+     *      New String with no spaces in owner's name
+     */
     private String replaceSpace(String str){
         str = str.replace(" ", "_");
         return str;
     }
 
+
+    /**
+     * Method to create the file name of the owner to check the file exists.
+     *
+     * @param owner
+     *      String with the owner name input
+     *
+     * @return - Boolean
+     *      True, if file exists, False if it doesn't
+     */
     private Boolean checkFileExists(String owner){
         String str = replaceSpace(owner);
         str = str + ".txt";
@@ -254,6 +298,7 @@ public class MainActivity extends AppCompatActivity {
 
         return file.exists();
     }
+
 
     /**
      * Method to get the owner's file
@@ -273,6 +318,7 @@ public class MainActivity extends AppCompatActivity {
 
         return new File(contextDirectory, str);
     }
+
 
     /**
      * Creates a file with the owners name and writes the owner to it.
@@ -304,10 +350,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     /**
+     * Method to parse the owners file to an AppointmentBook
      *
      * @param owner
-     * @return
+     *         String for the owner working with
+     *
+     * @return - AppointmentBook
+     *      New AppointmentBook holding owner's information
      */
     private AppointmentBook getAppointmentBook(String owner) {
         AppointmentBook book = new AppointmentBook(owner);

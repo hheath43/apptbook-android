@@ -7,6 +7,10 @@ import java.util.Date;
 
 import edu.pdx.cs410J.AbstractAppointment;
 
+
+/**
+ * This class represents an <code>Appointment</code>
+ */
 public class Appointment extends AbstractAppointment implements Comparable<Appointment> {
 
     private final String description;
