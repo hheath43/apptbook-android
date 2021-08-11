@@ -31,7 +31,15 @@ public class AddApptActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_appt);
 
         Button addAppt = findViewById(R.id.add_appt);
-        addAppt.setOnClickListener(view -> addNewAppointment());
+        addAppt.setOnClickListener(view -> {
+            addNewAppointment();
+            if(appt != null) {
+                toast("Appointment Added! Hit Return");
+            }
+        });
+
+
+
         Button returnAppt = findViewById(R.id.return_button);
         returnAppt.setOnClickListener(view -> sendApptBackToMain());
     }
@@ -82,9 +90,6 @@ public class AddApptActivity extends AppCompatActivity {
             endMarkerInput.setError("Please Enter a Valid Time Marker ex: AM/PM");
             toast("Please Enter a Valid Time Marker ex: AM/PM");
         } else if(!endIsAfterBegin(this.startDate, this.startTime, this.startMarker, this.endDate, this.endTime, this.endMarker)){
-            endDateInput.setError("End Of Appointment Must Be After Start");
-            endTimeInput.setError("End Of Appointment Must Be After Start");
-            endMarkerInput.setError("End Of Appointment Must Be After Start");
             toast("End Of Appointment Must Be After Start");
         } else {
             this.appt = new Appointment(this.description, this.startDate, this.startTime, this.startMarker, this.endDate, this.endTime, this.endMarker);
@@ -131,7 +136,7 @@ public class AddApptActivity extends AppCompatActivity {
      *         Returns false if date isn't valid, or true for valid.
      */
     private static boolean validateDate(String date) {
-        int mm, dd, yyyy;
+        int mm, dd;
         String delim = "[/]";
         String[] tokens;
         boolean alpha = isAlpha(date);
@@ -139,20 +144,22 @@ public class AddApptActivity extends AppCompatActivity {
         if(date.length() > 10 || date.length() < 6) {
             return false;
         }
-        else if(alpha == true){
+        else if(alpha){
             return false;
         }
         else {
             tokens = date.split(delim);
             mm = Integer.parseInt(tokens[0]);
             dd = Integer.parseInt(tokens[1]);
-            yyyy = Integer.parseInt(tokens[2]);
         }
 
         if(mm > 12) {
             return false;
         }
         else if(dd > 31) {
+            return false;
+        }
+        else if(tokens[2].length() > 4) {
             return false;
         }
 

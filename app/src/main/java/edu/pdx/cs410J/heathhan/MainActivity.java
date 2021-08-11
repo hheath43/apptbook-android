@@ -154,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
             if(appt == null){
                 return;
             }
-            toast("Appointment Added: " + appt);
 
 
             if(checkFileExists(owner)){
@@ -282,12 +281,12 @@ public class MainActivity extends AppCompatActivity {
             text.setText("README\n\n " +
                     "Hannah Heath - heathhan@pdx.edu \n" +
                     "Project 5\n\n\n " +
-                    "Enter the appointment book's owner that you want to work with.\n\n" +
+                    "Owner Name - enter the appointment book's owner that you want to work with.\n\n" +
                     "Create AppointmentBook - creates a new AppointmentBook for the owner\n\n" +
-                    "Add Appointment - creates a new appointment for the given owner\n\n" +
+                    "Add Appointment - creates a new appointment for the given owner, must hit return button after add appointment\n\n" +
                     "View All Appointments - shows all appointments for a given owner\n\n" +
                     "Search Appointments - searches a given owners appointments that fall between two dates and times.\n\n" +
-                    "** Click anywhere outside box to exit **");
+                    "** Click anywhere outside box to exit **\n\n");
 
             dialog.show();
 
